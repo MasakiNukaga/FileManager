@@ -3,10 +3,6 @@ body {
 	font-size:15px;
 }
 
-.contents {
-	padding:50px 150px;
-}
-
 table {
 	margin: 0 auto;
 	border:solid 2px;
@@ -25,8 +21,89 @@ td {
 	padding:10px 5px;
 }
 
+.directory-map {
+	position: relative;
+	padding: 0;
+}
+
+.directory-map div{
+	position: relative;
+	width: 200px;
+	height: 500px;
+	overflow: auto;
+}
+
+.directory-map ul{
+	margin: 0;
+	padding-left: 20px;
+	white-space: nowrap;
+}
+
+.directory-map li{
+	list-style: none;
+}
+
+.directory-map li:before{
+	content:"▶ ";
+	font-size:10px;
+}
+
+.directory-map .dirname{
+	cursor: pointer;
+}
+
+.name-map .names {
+	position: relative;
+	width: 160px;
+	height: 500px;
+	white-space: nowrap;
+	overflow: auto;
+}
+
+.extention-map .extentions{
+	width: 50px;
+	height: 500px;
+	white-space: nowrap;
+	overflow: auto;
+}
+
+.size-map .sizes {
+	width: 50px;
+	height: 500px;
+	white-space: nowrap;
+	overflow: auto;
+}
+
+.createtime-map .createtimes {
+	width: 100px;
+	height: 500px;
+	white-space: nowrap;
+	overflow: auto;
+}
+
+.lastedittime-map .lastedittimes {
+	width: 130px;
+	height: 500px;
+	white-space: nowrap;
+	overflow: auto;
+}
+
+.importantlevel-map .importantlevels {
+	width: 50px;
+	height: 500px;
+}
+
+.color-map .colors {
+	width: 50px;
+	height: 500px;
+}
+
 .search {
 	background-color:#D3D3D3;
+}
+
+.contents {
+	padding:50px 150px;
 }
 
 .btn {
