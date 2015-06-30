@@ -3,6 +3,10 @@ body {
 	font-size:15px;
 }
 
+span {
+    font-family: Osaka,"ＭＳ Ｐゴシック","MS PGothic",Sans-Serif;
+}
+
 table {
 	margin: 0 auto;
 	border:solid 2px;
@@ -23,13 +27,15 @@ td {
 
 .directory-map {
 	position: relative;
+	width: 200px;
+	height: 400px;
 	padding: 0;
 }
 
 .directory-map div{
 	position: relative;
 	width: 200px;
-	height: 500px;
+	height: 400px;
 	overflow: auto;
 }
 
@@ -58,6 +64,10 @@ td {
 	height: 500px;
 	white-space: nowrap;
 	overflow: auto;
+}
+
+.name-map span.name {
+	cursor: pointer;
 }
 
 .extention-map .extentions{
@@ -98,6 +108,10 @@ td {
 	height: 500px;
 }
 
+.explain-file {
+	height:180px;
+}
+
 .search {
 	background-color:#D3D3D3;
 }
@@ -117,11 +131,11 @@ td {
 .save {
 	float:right;
 	margin:10px 0;
-	width:60px;
+	width:80px;
 	text-align:center;
 	background-color:#4169E1;
 	color:white;
-	font-size:17px;
+	font-size:13px;
 	padding:10px 20px;
 	border-radius:5px;
 }
@@ -131,12 +145,33 @@ td {
 }
 
 .favstar {
-	  color:white;
-	  cursor:pointer;
-	  padding:5px 10px;
+	padding:5px 10px;
 }
 
 img {
 	vertical-align:middle;
 	border:none;
 }
+
+input[type="checkbox"]{
+	padding:0;
+	margin:5px 10px;
+  -webkit-appearance:none;
+  line-height:5px;
+  width:4px;
+  height:4px;
+  border:solid 1px #ddd;
+  -webkit-border-radius:5px;
+  text-align:center;
+  color:#888;
+  font-weight:bold;
+}
+input[type="checkbox"]:before {
+	position:absolute;
+	left:15px;
+  content:"★";
+  font-size:15px;
+} 
+input[type="checkbox"]:checked {
+  color:Gold;
+} 
