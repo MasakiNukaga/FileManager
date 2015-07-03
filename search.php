@@ -1,6 +1,4 @@
 <?php
-ini_set('display_errors',1);
-error_reporting(E_ALL);
 
 $search_result = array();
 function searchFileList($dir, $search_word){
