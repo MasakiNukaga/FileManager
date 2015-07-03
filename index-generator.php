@@ -1,5 +1,8 @@
 <?php
 
+// $start_dir = posix_getpwuid(posix_geteuid())['dir']; //Userディレクトリ以降のファイルを取得したい場合
+$start_dir = __DIR__; // このプログラムのディレクトリ以降のファイルを取得したい場合
+
 function getFileList($dir, &$list){
 
  	$files = scandir($dir);
@@ -49,8 +52,6 @@ function displayDirMap($dir){
  	return $list;
 }
 $file_list = array();
-// $start_dir = posix_getpwuid(posix_geteuid())['dir']; //Userディレクトリ以降のファイルを取得したい場合
-$start_dir = __DIR__; // このプログラムのディレクトリ以降のファイルを取得したい場合
 getFileList($start_dir,$file_list);
 
 ?>
@@ -65,12 +66,7 @@ getFileList($start_dir,$file_list);
 <script type="text/javascript">
 var bc = ["#FFFFFF","#00BFFF","#7FFF00","#FFFF00","#000000","#FF0000"];
 var fs = ["15px","20px","25px"];
-
-// function changeFontSize(e,number) {
-// 	var file = ".file"+number;
-// 	$(file).css('font-size',fs[e.selectedIndex]);
-// }
-
+	
 $(function() {
 	$('.color').css("background-color", bc[0]);
 	$('.color').css("color", bc[0]);
