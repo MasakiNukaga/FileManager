@@ -9,7 +9,7 @@ function getFileList($dir, &$list){
  	$files = array_filter($files, function ($file) {
      return !in_array($file, array('.', '..'));
  	});
- 
+
   foreach ($files as $file) {
   	// 隠しファイルをリストから取り除く
   	if(substr($file,0,1) == '.'){
@@ -61,12 +61,11 @@ getFileList($start_dir,$file_list);
 <head>
 <meta charset="UTF-8">
 <link rel='stylesheet' href='mystyle.css' />
-<script type="text/javascript" src='jquery-1.11.2.min.js'></script>
-<script type="text/javascript" src='myscript.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript">
 var bc = ["#FFFFFF","#00BFFF","#7FFF00","#FFFF00","#000000","#FF0000"];
 var fs = ["15px","20px","25px"];
-	
+
 $(function() {
 	$('.color').css("background-color", bc[0]);
 	$('.color').css("color", bc[0]);
@@ -75,7 +74,7 @@ $(function() {
 		var path = ($(this).attr('class').slice(8) + "/" + $(this).text()).replace(/_/gi,"/");
 		$(".now-directory-path").text(path);
 
-		var classes = [".names",".extentions",".sizes",".createtimes",".lastedittimes",".importantlevels",".colors"];
+		var classes = [".names",".extensions",".sizes",".createtimes",".lastedittimes",".importantlevels",".colors"];
 		classes.forEach(function(classname){
 			$(classname).hide();
 		});
@@ -126,7 +125,7 @@ $(function() {
 		var target_class = $(this).attr('class').slice(10);
 
 	  var selected_index = $(this).prop('selectedIndex');
-	  var classes = ["name","extention","size","createtime","lastedittime"];
+	  var classes = ["name","extension","size","createtime","lastedittime"];
 	  classes.forEach(function(class_name){
     	$("span[class=\'" + class_name + " " + target_class + "\']").css('font-size', fs[selected_index]);
   	});
@@ -181,8 +180,8 @@ $(function() {
 	<tr>
 		<td rowspan='2' class='name-map'>
 			<?php
-			foreach($file_list as $dir => $filenames){ 
-				$loop_count = 0; 
+			foreach($file_list as $dir => $filenames){
+				$loop_count = 0;
 				$class = str_replace("/", "_", $dir); ?>
 				<div class='names <?php echo $class ?>' style='display:none'><?php
 				foreach($filenames as $filename){
@@ -197,15 +196,17 @@ $(function() {
 			}
 			?>
 		</td>
-		<td rowspan='2' class='extention-map'>
+		<td rowspan='2' class='extension-map'>
 			<?php
-			foreach($file_list as $dir => $filenames){ 
+			foreach($file_list as $dir => $filenames){
 				$class = str_replace("/", "_", $dir); ?>
-				<div class='extentions <?php echo $class ?>' style='display:none'><?php
+				<div class='extensions <?php echo $class ?>' style='display:none'><?php
 				foreach($filenames as $number => $filename){
-					$info = new SplFileInfo($filename); ?>
+					$info = pathinfo($dir."/".$filename); ?>
 			  	<div class='file<?php echo $number ?> <?php echo $class."_".$filename?>'>
-			  	<span class='extention <?php echo $class."_".$filename?>'><?php echo $info->getExtension() ?></span><br />
+			  	<span class='extension <?php echo $class."_".$filename?>'>
+            <?php echo $info['extension'] ?>
+          </span><br />
 			  	</div><?php
 		  	} ?>
 		  	</div> <?php
@@ -214,11 +215,12 @@ $(function() {
 		</td>
 		<td rowspan='2' class='size-map'>
 			<?php
-			foreach($file_list as $dir => $filenames){ 
+			foreach($file_list as $dir => $filenames){
 				$class = str_replace("/", "_", $dir); ?>
 				<div class='sizes <?php echo $class ?>' style='display:none'><?php
 				foreach($filenames as $number => $filename){
-					$size = stat($dir."/".$filename)['size']; ?>
+					$stat = stat($dir."/".$filename);
+          $size = $stat['size']; ?>
 		  		<div class='file<?php echo $number ?> <?php echo $class."_".$filename?>'>
 		  		<span class='size <?php echo $class."_".$filename?>'><?php echo $size ?></span><br />
 		  		</div><?php
@@ -246,11 +248,12 @@ $(function() {
 
 		<td rowspan='2' class='lastedittime-map'>
 			<?php
-			foreach($file_list as $dir => $filenames){ 
+			foreach($file_list as $dir => $filenames){
 				$class = str_replace("/", "_", $dir); ?>
 				<div class='lastedittimes <?php echo $class ?>' style='display:none'><?php
 				foreach($filenames as $number => $filename){
-					$last_edit_time = stat($dir."/".$filename)['mtime'] ?>
+					$stat = stat($dir."/".$filename);
+          $last_edit_time = $stat['mtime'] ?>
 					<div class='file<?php echo $number ?> <?php echo $class."_".$filename?>'>
 					<span class='lastedittime <?php echo $class."_".$filename?>'><?php echo strftime("%Y-%m-%d %T",$last_edit_time) ?></span><br />
 					</div><?php
@@ -260,8 +263,8 @@ $(function() {
 		  ?>
 		</td>
 		<td rowspan='2' class='importantlevel-map'>
-			<?php 
-			foreach($file_list as $dir => $filenames){ 
+			<?php
+			foreach($file_list as $dir => $filenames){
 				$class = str_replace("/", "_", $dir); ?>
 				<div class='importantlevels <?php echo $class ?>' style='display:none'><?php
 				$count = 0;
@@ -280,8 +283,8 @@ $(function() {
 			?>
 		</td>
 		<td rowspan='2' class='color-map'>
-			<?php 
-			foreach($file_list as $dir => $filenames){ 
+			<?php
+			foreach($file_list as $dir => $filenames){
 				$class = str_replace("/", "_", $dir); ?>
 				<div class='colors <?php echo $class ?>' style='display:none'><?php
 				foreach($filenames as $number => $filename){ ?>
@@ -306,7 +309,7 @@ $(function() {
 		<td colspan='2' class='explain-file'>
 			<span>説明</span>
 			<?php
-			foreach($file_list as $dir => $filenames){ 
+			foreach($file_list as $dir => $filenames){
 				$class = str_replace("/", "_", $dir); ?>
 				<div class='explains <?php echo $class ?>' style='display:none'><?php
 				foreach($filenames as $number => $filename){ ?>
